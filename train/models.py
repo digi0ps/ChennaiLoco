@@ -5,19 +5,24 @@ from django.db import models
 
 class Station(models.Model):
 	number = models.IntegerField(primary_key=True)
-	name = models.CharField(max_length=50, unique=True)
+	name = models.CharField(max_length=50)
 	majorStation = models.BooleanField(default=0)
 	locality = models.CharField(max_length=50)
 	pincode = models.IntegerField()
 
+	class meta:
+		ordering = ["-number"]
+
 	def __str__(self):
-		return name
+		if self.name:
+			return self.name
+		else:
+			return str(self.number)
 
 
 class Train(models.Model):
-	number = models.CharField(max_length=50)
-	name = models.IntegerField(primary_key=True)
-	avgTime = models.DecimalField(max_digits=5, decimal_places=2)
+	number = models.IntegerField(unique=True)
+	name = models.CharField(max_length=50)
 	stations = models.ManyToManyField(
 		Station,
 		related_name="stations",
@@ -33,3 +38,6 @@ class Status(models.Model):
 	station = models.ForeignKey(Station, on_delete=models.CASCADE)
 	arrival = models.IntegerField()
 	departure = models.IntegerField()
+
+	def __str__(self):
+		return self.train.name + " at " + self.station.name
