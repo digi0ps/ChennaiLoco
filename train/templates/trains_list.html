@@ -1,0 +1,11 @@
+{% extends "base.html" %} 
+{% block body %} 
+<hr>
+{% for train in trains %}
+<div class="train">
+    <p>Train name: {{ train.name }}</p>
+    <p>Train number: {{ train.number }}</p>
+    <p>Number of stops: {{ train.stations.count }}</p>
+</div>
+<hr> 
+{% endfor %} {% endblock body %}

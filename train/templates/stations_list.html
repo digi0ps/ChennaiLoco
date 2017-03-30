@@ -1,0 +1,14 @@
+{% extends "base.html" %} 
+{% block body %} 
+<hr>
+{% for station in stations %}
+<div class="station">
+    <p>Station name: {{ station.name }}</p>
+    <p>Station number: {{ station.number }}</p>
+    <p>Station MajorStation: {{ station.majorStation }}</p>
+    <p>Station locality: {{ station.locality }}</p>
+    <p>Station pincode: {{ station.pincode }}</p>
+
+</div>
+<hr> 
+{% endfor %} {% endblock body %}
