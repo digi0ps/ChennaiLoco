@@ -1,14 +1,15 @@
 from django.db import models
-
+from django.template.defaultfilters import slugify
 # Create your models here.
 
 
 class Station(models.Model):
-	number = models.IntegerField(primary_key=True)
-	name = models.CharField(max_length=50)
+	code = models.IntegerField(primary_key=True)
+	name = models.CharField(max_length=50, unique=True)
 	majorStation = models.BooleanField(default=0)
 	locality = models.CharField(max_length=50)
 	pincode = models.IntegerField()
+	slug = models.SlugField(max_length=50, unique=True, null=True)
 
 	class meta:
 		ordering = ["-number"]
@@ -18,6 +19,10 @@ class Station(models.Model):
 			return self.name
 		else:
 			return str(self.number)
+
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(Station, self).save(*args, **kwargs)
 
 
 class Train(models.Model):
