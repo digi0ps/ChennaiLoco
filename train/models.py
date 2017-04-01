@@ -26,8 +26,9 @@ class Station(models.Model):
 
 
 class Train(models.Model):
-	number = models.IntegerField(unique=True)
+	number = models.IntegerField(primary_key=True)
 	name = models.CharField(max_length=50)
+	line = models.CharField(max_length=5)
 	stations = models.ManyToManyField(
 		Station,
 		related_name="stations",

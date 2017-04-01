@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block body %}
+	<center>
+	<h1>Station Detail</h1>
+	<div class="details">
+	<p>{{ station.name }}</p>
+	<p>{{ station.code }}</p>
+	<p>{{ station.locality }}</p>
+	<p>{{ station.pincode }}</p>
+	{% if station.majorStation %}
+	<p>Major Station</p>
+	{% endif %}
+	</div>
+{% endblock body %}
