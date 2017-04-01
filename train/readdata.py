@@ -31,15 +31,15 @@ def get_data_from_file(name):
 
 
 def train_data():
-	print("\n\n\tChecking whether data file exists and reading from it.")
+	print("\tChecking whether data file exists and reading from it.")
 	dataset = get_data_from_file("train")
 	if not dataset:
 		return "Error: Null dataset."
 
-	print("\n\n\tDeleting Train Objects.")
+	print("\tDeleting Train Objects.")
 	Train.objects.all().delete()
 
-	print("\n\n\tInserting new data.")
+	print("\tInserting new data.")
 
 	for data in dataset:
 		data = data.split(":")
@@ -47,26 +47,28 @@ def train_data():
 		t = Train()
 		t.name, t.number = data
 		t.save()
+		print("\nSaved train " + str(t.number))
 
-	print("\n\n\tInsertion done.\nQuiting...")
+	print("\tInsertion done.\n\tQuiting...")
 
 
 def station_data():
-	print("\n\n\tChecking whether data file exists and reading from it.")
-	dataset = get_data_from_file("train")
+	print("\tChecking whether data file exists and reading from it.")
+	dataset = get_data_from_file("station")
 	if not dataset:
 		return "Error: Null dataset."
 
-	print("\n\n\tDeleting Station Objects.")
+	print("\tDeleting Station Objects.")
 	Station.objects.all().delete()
 
-	print("\n\n\tInserting new data.")
+	print("\tInserting new data.")
 
 	for data in dataset:
 		data = data.split(":")
 		data[1] = int(data[1])
 		s = Station()
 		s.name, s.code, s.locality, s.pincode = data
-		t.save()
+		s.save()
+		print("\nSaved station " + s.name)
 
-	print("\n\n\tInsertion done.\nQuiting...")
+	print("\tInsertion done.\tQuiting...")
