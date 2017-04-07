@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 
 
 # Models Import
-from train.models import Train, Station, Status
+from train.models import Train, Station, Route
 
 
 def home_view(request):

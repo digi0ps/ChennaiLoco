@@ -1,5 +1,5 @@
 from django.contrib import admin
-from train.models import Train, Station, Status
+from train.models import Train, Station, Route
 # Register your models here.
 
 
@@ -8,4 +8,4 @@ class trainAdmin(admin.ModelAdmin):
 
 admin.site.register(Train)
 admin.site.register(Station)
-admin.site.register(Status)
+admin.site.register(Route)
