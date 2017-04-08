@@ -21,6 +21,9 @@ class Station(models.Model):
 		else:
 			return str(self.number)
 
+	def get_absolute_url(self):
+		return "/station/%s/" % self.slug
+
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)
 		super(Station, self).save(*args, **kwargs)
@@ -37,6 +40,9 @@ class Train(models.Model):
 
 	def __str__(self):
 		return str(self.number)
+
+	def get_absolute_url(self):
+		return "/train/%i/" % self.number
 
 
 class Route(models.Model):

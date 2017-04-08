@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block body %}
+<style type="text/css">
+	.searchbox {
+		margin: 10px auto;
+	}
+</style>
+	<h3>Search by:</h3>
+	<div class="search-train-number searchbox">
+		<button class="searchbtns" id="searchtype1">Train Number</button>
+		<div class="search-train-number-div">
+			<form method="POST" action="{% url 'trainsearch' %}">
+				{% csrf_token %}
+				<label for="#train-number-input">Train Number</label><br>
+				<input type="text" id="train-number-input" name="trainnumber" placeholder="Eg: 40501"><br>
+				<button type="submit" class="submitbutton">Search</button>
+			</form>
+		</div>
+	</div>
+	<div class="search-station-name searchbox">
+		<button class="searchbtns" id="searchtype2">Station Name</button>
+		<div class="search-station-name-div">
+			<form method="POST" action="{% url 'stationsearch' %}">
+				{% csrf_token %}
+				<label for="#station-name-input">Station Name</label><br>
+				<input type="text" id="station-name-input" name="stationname" placeholder="Eg: Palavanthangal"><br>
+				<button type="submit" class="submitbutton">Search</button>
+			</form>
+		</div>
+	</div>
+	<div class="search-train-destination searchbox">
+		<button class="searchbtns" id="searchtype3">Destination</button>
+		<div class="search-train-destination">
+			<form method="POST" action="">
+				{% csrf_token %}
+				<label for="#from-input">From</label><br>
+				<input type="text" id="from-input" name="fromstation" placeholder="Eg: Beach Station"><br>
+
+				<label for="#to-input">To</label><br>
+				<input type="text" id="to-input" name="tostation" placeholder="Eg: Park Station"><br>
+
+				<button type="submit" class="submitbutton">Search</button>
+			</form>
+		</div>
+	</div>
+{% endblock body %}
