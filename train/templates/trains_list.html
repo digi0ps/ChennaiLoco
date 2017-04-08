@@ -1,10 +1,13 @@
 {% extends "base.html" %} 
+{% block title %}
+	Trains - ChennaiLoco
+{% endblock title %}
 {% block body %} 
 <hr>
 {% for train in trains %}
 <div class="train">
     <p>Train name: {{ train.name }}</p>
-    <p>Train number: {{ train.number }}</p>
+    <p>Train number: <a href="{% url 'train' train.number %}">{{ train.number }}</a></p>
     <p>Number of stops: {{ train.stations.count }}</p>
 </div>
 <hr> 

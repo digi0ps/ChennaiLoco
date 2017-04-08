@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% block title %}
+	{{ from.name }} to {{ to.name }}
+{% endblock title %}
 {% block body %}
 	<h3>From: {{ from.name }} ({{ from.code }})</h3>
 	<h3>To: {{ to.name }} ({{ to.code }})</h3>
