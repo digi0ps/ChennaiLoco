@@ -11,4 +11,10 @@
 	<p>Major Station</p>
 	{% endif %}
 	</div>
+	<div class="trains">
+		List of trains going through: <br>
+		{% for r in trainroutes %}
+			<p> {{ r.train.name }}:{{ r.train.number }} - {{ r.departure }}</p>
+		{% endfor %}
+	</div>
 {% endblock body %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
 
@@ -22,13 +22,13 @@ class station_list(ListView):
 	template_name = "stations_list.html"
 
 
-class train_detail(DetailView):
-	model = Train
-	context_object_name = "train"
-	template_name = "train_detail.html"
+def train_view(request, pk):
+	train = get_object_or_404(Train, pk=pk)
+	route = Route.objects.select_related('station').filter(train=train)
+	return render(request, "train_detail.html", {"train": train, "route": route})
 
 
-class station_detail(DetailView):
-	model = Station
-	context_object_name = "station"
-	template_name = "station_detail.html"
+def station_view(request, slug):
+	station = get_object_or_404(Station, slug=slug)
+	route = Route.objects.select_related('train').filter(station=station)
+	return render(request, "station_detail.html", {"station": station, "trainroutes": route})

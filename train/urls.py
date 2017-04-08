@@ -21,7 +21,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', v.home_view, name='home'),
     url(r'^trains/$', v.train_list.as_view(), name='trains'),
-    url(r'^train/(?P<pk>\d{1,6})/$', v.train_detail.as_view(), name='train'),
+    url(r'^train/(?P<pk>\d{1,6})/$', v.train_view, name='train'),
     url(r'^stations/$', v.station_list.as_view(), name='stations'),
-    url(r'^station/(?P<slug>[\w-]+)/$', v.station_detail.as_view(), name='station'),
+    url(r'^station/(?P<slug>[\w-]+)/$', v.station_view, name='station'),
 ]

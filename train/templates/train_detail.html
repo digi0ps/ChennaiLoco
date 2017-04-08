@@ -7,4 +7,9 @@
 	<p>{{ train.number }}</p>
 	<p>{{ train.line }}</p>
 	</div>
+	<div class="stations">
+	{% for r in route %}
+		<p> {{ r.station.name }} - {{ r.departure }} </p>
+	{% endfor %}
+	</div>
 {% endblock body %}
