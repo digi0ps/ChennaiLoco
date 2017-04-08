@@ -92,34 +92,33 @@ def route_data():
 	print("Inserting new data.")
 	for datas in dataset:
 		datas = [d for d in datas.split(ROWDIV) if d != "" and d != " "]
-		r = Route()
 		for data in datas:
 			if COLDIV not in data:
 				"""
 				This is the train number, so am getting the train using
-				a try except and assigning it to the route variable.
+				a try except and assigning it to the train variable.
 				"""
 				try:
-					print(int(data))
 					t = Train.objects.get(number=int(data))
 				except DoesNotExist:
 					return "Train does not exist - " + data
-				r.train = t
 			else:
 				"""
 				This is the station + the time taken to arrive/depart theier
 				"""
 				data = data.split(COLDIV)
 				try:
-					print(data[0])
 					s = Station.objects.get(code=data[0])
 				except DoesNotExist:
 					return "Station does not exist - " + data[0]
+				r = Route()
+				r.train = t
 				r.station = s
 				r.departure = int(data[1])
 				r.arrival = int(data[1])
-		r.save()
-		print("Saved route " + str(r.train.number) + " - " + r.station.code)
+				r.save()
+				print("Saved route " + str(r.train.number) + " - " + r.station.code)
+	print("Insertion done. Quiting.")
 
 
 def populate_db():
@@ -127,4 +126,6 @@ def populate_db():
 	train_data()
 	print("Entering Station data")
 	station_data()
+	print("Entering all route info")
+	route_data()
 	return "Database populated. Quiting."
