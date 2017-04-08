@@ -5,6 +5,40 @@ from django.http import HttpResponseRedirect
 # Models Import
 from train.models import Train, Station, Route
 
+# Custom Class definition
+
+
+class result:
+	# Train, Route(First station), Route(Second station)
+	def __init__(self, train, f, t):
+		self.train = train
+		self.f = f
+		self.t = t
+
+
+# Custom Functions definition
+
+
+def check(array, first, second):
+	"""
+	Checks if two items are present in a list of items one after the other
+	"""
+	# Position variables for the first item and second item
+	f_pos, s_pos = [-1, -1]
+	l = len(array)
+	for i in range(0, l):
+		if array[i] == first:
+			f_pos = i
+		elif array[i] == second:
+			s_pos = i
+	# Returns true only if position of second item greater than first item
+	# And both are not in their default values
+	if s_pos > -1 and f_pos > -1 and s_pos > f_pos:
+		return True
+	else:
+		return False
+
+
 
 def home_view(request):
 	return render(request, "home.html")
@@ -56,35 +90,29 @@ def station_search_view(request):
 		return HttpResponseRedirect(url)
 
 
-def check_two_stations(array, first, second):
-	"""
-	Checks if two items are present in a list of items one after the other
-	"""
-	# l Position variables for the first item and second item
-	f_pos, s_pos = -1
-	for i in range(0, l):
-		if array[i] == f:
-			f_pos = i
-		elif array[i] == s:
-			s_pos = i
-	# Returns true only if position of second item greater than first item
-	# And both are not in their default values
-	if s_pos > -1 and f_pos > -1 and s_pos > f_pos:
-		return True
-	else:
-		return Flase
-
-
 def places_search_view(request):
 	if request.method == "POST" and request.POST:
 		from_station = request.POST["fromstation"].replace(" ", "-").lower()
-		to_staiton = request.POST["tostation"].replace(" ", "-").lower()
+		to_station = request.POST["tostation"].replace(" ", "-").lower()
 		# get  the two station objects
 		f = get_object_or_404(Station, slug=from_station)
 		t = get_object_or_404(Station, slug=to_station)
 
-		trains = Trains.objects.all().select_related('stations')
+		# Trains list containig result objects
+		results = list()
+		trains = Train.objects.all().prefetch_related('stations')
 		for train in trains:
 			stations = train.stations.all()
-			check = check_two_stations(stations, f, t)
-			print(check)
+			check_result = check(stations, f, t)
+			if check_result:
+				f_route = Route.objects.filter(train=train, station=f).select_related('station')[0]
+				t_route = Route.objects.filter(train=train, station=t).select_related('station')[0]
+				r = result(train, f_route, t_route)
+				results.append(r)
+
+		return render(request, "searchresult.html", {
+			"results": results,
+			"from": f,
+			"to": t,
+		})
+

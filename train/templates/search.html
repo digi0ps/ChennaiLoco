@@ -31,7 +31,7 @@
 	<div class="search-train-destination searchbox">
 		<button class="searchbtns" id="searchtype3">Destination</button>
 		<div class="search-train-destination">
-			<form method="POST" action="">
+			<form method="POST" action="{% url 'placessearch' %}">
 				{% csrf_token %}
 				<label for="#from-input">From</label><br>
 				<input type="text" id="from-input" name="fromstation" placeholder="Eg: Beach Station"><br>

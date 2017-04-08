@@ -27,5 +27,5 @@ urlpatterns = [
     url(r'^search/$', v.search_view, name='search'),
     url(r'^search/train/$', v.train_search_view, name='trainsearch'),
     url(r'^search/station/$', v.station_search_view, name='stationsearch'),
-    url(r'^search/place/$', v.places_search_view, name='stationsearch'),
+    url(r'^search/place/$', v.places_search_view, name='placessearch'),
 ]
