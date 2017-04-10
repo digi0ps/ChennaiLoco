@@ -1,0 +1,21 @@
+* {
+	box-sizing: border-box;
+}
+body {
+}
+h1 {
+	color: black;
+}
+.container {
+	margin-top: 50px;
+	background-color: #fff;
+	border-radius: 10px;
+	height: 600px;
+}
+a {
+	font-size: 15px;
+}
+
+a:hover {
+	text-decoration: none;
+}

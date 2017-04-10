@@ -6,7 +6,7 @@ Stations - Chennai Loco
 <hr>
 {% for station in stations %}
 <div class="station">
-    <p>Station name: {{ station.name }}</p>
+    <p>Station name: <a href="{% url 'station' station.slug %}">{{ station.name }}</a></p>
     <p>Station number: {{ station.number }}</p>
     <p>Station MajorStation: {{ station.majorStation }}</p>
     <p>Station locality: {{ station.locality }}</p>

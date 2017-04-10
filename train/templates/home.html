@@ -1,9 +1,14 @@
 {% extends "base.html" %} 
 {% block body %}
-<h3>Welcome to ChennaiLoco, you can use this to view all the schedules of trains and their timings.</h3>
+<div class="container">
+<div class="row">
+<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+<p class="lead">Welcome to ChennaiLoco, you can use this to view all the schedules of trains and their timing. </p>
+</div>
 <a href="{% url 'search' %}">Search</a>
 <br>
 <a href="{% url 'trains' %}">Trains</a>
 <br>
-<a href="{% url 'stations' %}">Stations</a> 
+<a href="{% url 'stations' %}">Stations</a>
+</div>
 {% endblock body %}

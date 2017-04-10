@@ -1,4 +1,0 @@
-train1:101
-train2:102
-train3:103
-train4:105
