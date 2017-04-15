@@ -39,7 +39,6 @@ def check(array, first, second):
 		return False
 
 
-
 def home_view(request):
 	return render(request, "home.html")
 
