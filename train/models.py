@@ -18,8 +18,6 @@ class Station(models.Model):
 	def __str__(self):
 		if self.name:
 			return self.name
-		else:
-			return self.code
 
 	def get_absolute_url(self):
 		return "/station/%s/" % self.slug
