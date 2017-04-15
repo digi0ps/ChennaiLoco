@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.com/digi0ps/ChennaiLoco.svg?token=1qd4LqrZLisWhxqZDWCe&branch=master)](https://travis-ci.com/digi0ps/ChennaiLoco)
 [![Updates](https://pyup.io/repos/github/digi0ps/ChennaiLoco/shield.svg?token=395e8e90-8e77-45a5-9b2f-ca308d4bc61a)](https://pyup.io/repos/github/digi0ps/ChennaiLoco/)
 [![Python 3](https://pyup.io/repos/github/digi0ps/ChennaiLoco/python-3-shield.svg?token=395e8e90-8e77-45a5-9b2f-ca308d4bc61a)](https://pyup.io/repos/github/digi0ps/ChennaiLoco/)
-[![GitHub issues](https://img.shields.io/github/issues/badges/shields.svg?style=flat-square)]()
+
 ## A short introduction
 This project ( or as we call it the Chennai Loco ) deals with creating a web app for storing a huge database of the schedules of Chennai Electric trains and providing users a simple and an easy interface for searching the schedules of the Trains and also viewing details of each Train and Station ( with user ratings and reviews ). 
 
