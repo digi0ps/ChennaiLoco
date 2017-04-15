@@ -4,12 +4,12 @@
 {% endblock blockname %}
 {% block body %}
 	<center>
-	<h1>Station Detail</h1>
+	<h3>Station Detail</h3>
 	<div class="details">
-	<p>{{ station.name }}</p>
-	<p>{{ station.code }}</p>
-	<p>{{ station.locality }}</p>
-	<p>{{ station.pincode }}</p>
+	<p><strong>Name: </strong>{{ station.name }}</p>
+	<p><strong>Code: </strong>{{ station.code }}</p>
+	<p><strong>Locality: </strong>{{ station.locality }}</p>
+	<p><strong>Pincode: </strong>{{ station.pincode }}</p>
 	{% if station.majorStation %}
 	<p>Major Station</p>
 	{% endif %}
@@ -17,7 +17,7 @@
 	<div class="trains">
 		List of trains going through: <br>
 		{% for r in trainroutes %}
-			<p> {{ r.train.name }}:{{ r.train.number }} - {{ r.departure }}</p>
+			<a href="{% url 'train' r.train.number %}"><p> {{ r.train.name }}:{{ r.train.number }}</a> - {{ r.time }}</p>
 		{% endfor %}
 	</div>
 {% endblock body %}

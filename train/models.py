@@ -19,7 +19,7 @@ class Station(models.Model):
 		if self.name:
 			return self.name
 		else:
-			return str(self.number)
+			return self.code
 
 	def get_absolute_url(self):
 		return "/station/%s/" % self.slug
@@ -48,8 +48,7 @@ class Train(models.Model):
 class Route(models.Model):
 	train = models.ForeignKey(Train, on_delete=models.CASCADE)
 	station = models.ForeignKey(Station, on_delete=models.CASCADE)
-	arrival = models.IntegerField()
-	departure = models.IntegerField()
+	time = models.CharField(max_length=5)
 
 	def __str__(self):
 		return self.train.name + " at " + self.station.name

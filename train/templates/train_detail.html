@@ -12,7 +12,7 @@
 	</div>
 	<div class="stations">
 	{% for r in route %}
-		<p> {{ r.station.name }} - {{ r.departure }} </p>
+		<p> {{ r.station.name }} - {{ r.time }} </p>
 	{% endfor %}
 	</div>
 {% endblock body %}

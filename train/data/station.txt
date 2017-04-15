@@ -1,9 +1,9 @@
 Chennai Beach:MSB:Mannadi:600001:N,W,S,M
 Chennai Fort:MSF:George Town:600009:S,M
-Chennai Park:MPK:Park Town/Poongavanapuram:600003:S
+Chennai Park:MPK:Park Town:600003:S
 Chennai Egmore:MS:Egmore:600008:S
 Chetpet:MSC:Chetpet:600031:S
-Nungambakkam:NBM:Nungambakkam:600034:S
+Nungambakkam:NBK:Nungambakkam:600034:S
 Kodambakkam:MKK:Kodambakkam:600024:S
 Mambalam:MBM:West Mambalam:600033:S
 Saidapet:SP:Saidapet:600015:S
@@ -30,3 +30,12 @@ Ottivakkam:OV:Ottivakkam:603209:S
 Karunguzhi:KGZ:Karunguzhi:603303:S
 Madurantakam:MMK:Madurantakam:603306:S
 Melmaruvathur:MLMR:Melmaruvathur:603302:S
+Reddypalayam:RDY:Reddypalayam:603101:SW
+Villiyambakkam:VB:Villiyambakkam:603101:SW
+Palur:PALR:Palur:603101:SW
+Palayasivaram:PYV:Palayasivaram:6:SW
+Walajabad:WJ:Walajabad:6:SW
+Nathapettai:NTT:Nathapettai:6:SW
+Kanchipuram Old:CJE:Kanchipuram Town:6:SW
+Kanchipuram:CJ:Kanchipuram:6:SW
+Thirumalpur:TMLP:Thirumalpur:60:SW

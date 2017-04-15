@@ -10,8 +10,8 @@
 		{% for result in results %}
 			<div class="results" id="{{ forloop.counter }}">
 				<strong> {{ result.train.name }} - <a href='{% url "train" result.train.number %}'>{{ result.train.number }}</a></strong>
-				<p> <a href="{% url 'station' result.f.station.slug %}">{{ result.f.station.name }}</a> - {{ result.f.arrival }} </p>
-				<p> <a href="{% url 'station' result.t.station.slug %}">{{ result.t.station.name }}</a> - {{ result.t.arrival }} </p>
+				<p> <a href="{% url 'station' result.f.station.slug %}">{{ result.f.station.name }}</a> - {{ result.f.time }} </p>
+				<p> <a href="{% url 'station' result.t.station.slug %}">{{ result.t.station.name }}</a> - {{ result.t.time }} </p>
 			</div>
 			<hr>
 		{% endfor %}

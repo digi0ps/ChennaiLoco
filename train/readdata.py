@@ -99,6 +99,7 @@ def route_data():
 				a try except and assigning it to the train variable.
 				"""
 				try:
+					print(data)
 					t = Train.objects.get(number=int(data))
 				except DoesNotExist:
 					return "Train does not exist - " + data
@@ -108,14 +109,14 @@ def route_data():
 				"""
 				data = data.split(COLDIV)
 				try:
+					print(data[0])
 					s = Station.objects.get(code=data[0])
 				except DoesNotExist:
 					return "Station does not exist - " + data[0]
 				r = Route()
 				r.train = t
 				r.station = s
-				r.departure = int(data[1])
-				r.arrival = int(data[1])
+				r.time = data[1][0:2] + ":" + data[1][2:4]
 				r.save()
 				print("Saved route " + str(r.train.number) + " - " + r.station.code)
 	print("Insertion done. Quiting.")

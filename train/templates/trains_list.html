@@ -2,13 +2,17 @@
 {% block title %}
 	Trains - ChennaiLoco
 {% endblock title %}
+
 {% block body %} 
-<hr>
+<div class="container">
+<div class="row">
 {% for train in trains %}
-<div class="train">
+<div class="train col-xs-12 col-sm-3 col-sm-offset-2 text-center jumbotron">
     <p>Train name: {{ train.name }}</p>
     <p>Train number: <a href="{% url 'train' train.number %}">{{ train.number }}</a></p>
     <p>Number of stops: {{ train.stations.count }}</p>
 </div>
-<hr> 
-{% endfor %} {% endblock body %}
+{% endfor %} 
+</div>
+</div>
+{% endblock body %}

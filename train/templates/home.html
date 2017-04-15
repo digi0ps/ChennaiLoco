@@ -1,14 +1,26 @@
-{% extends "base.html" %} 
+{% extends "base.html" %}
 {% block body %}
+
 <div class="container">
 <div class="row">
 <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-<p class="lead">Welcome to ChennaiLoco, you can use this to view all the schedules of trains and their timing. </p>
+<div class="row">
+	<ul class="nav nav-tabs">
+    <li class="active"><a href="#">Home</a></li>
+    <li><a href="{% url 'search' %}">Search</a></li>
+    <li><a href="{% url 'trains' %}">Trains</a></li>
+    <li><a href="{% url 'stations' %}">Stations</a></li>
+  </ul>
+  <br>
 </div>
-<a href="{% url 'search' %}">Search</a>
+<p class="lead">This web app ( or as we call it the Chennai Loco ) is a project for our CS course "Database Management Systems" under the guidance of Prof. Dr. B. Saleena ma'am. 
+<br><br>
+It has a huge database of the schedules of Chennai Electric trains providing users a simple and an easy interface for searching the schedules of the Trains and also letting them viewing the details of each Train and Station ( with user ratings and reviews ). </p>
+</div>
+
 <br>
-<a href="{% url 'trains' %}">Trains</a>
+
 <br>
-<a href="{% url 'stations' %}">Stations</a>
+
 </div>
 {% endblock body %}

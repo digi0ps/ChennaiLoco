@@ -7,33 +7,22 @@
 	.searchbox {
 		margin: 10px auto;
 	}
+	.search-hide {
+		display: none;
+		transition: all 0.3s ease-in;
+	}
+	.hide {
+		display: block;
+	}
 </style>
+<div class="container">
+<div class="row">
+<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+<center>
 	<h3>Search by:</h3>
-	<div class="search-train-number searchbox">
-		<button class="searchbtns" id="searchtype1">Train Number</button>
-		<div class="search-train-number-div">
-			<form method="POST" action="{% url 'trainsearch' %}">
-				{% csrf_token %}
-				<label for="#train-number-input">Train Number</label><br>
-				<input type="text" id="train-number-input" name="trainnumber" placeholder="Eg: 40501"><br>
-				<button type="submit" class="submitbutton">Search</button>
-			</form>
-		</div>
-	</div>
-	<div class="search-station-name searchbox">
-		<button class="searchbtns" id="searchtype2">Station Name</button>
-		<div class="search-station-name-div">
-			<form method="POST" action="{% url 'stationsearch' %}">
-				{% csrf_token %}
-				<label for="#station-name-input">Station Name</label><br>
-				<input type="text" id="station-name-input" name="stationname" placeholder="Eg: Palavanthangal"><br>
-				<button type="submit" class="submitbutton">Search</button>
-			</form>
-		</div>
-	</div>
 	<div class="search-train-destination searchbox">
-		<button class="searchbtns" id="searchtype3">Destination</button>
-		<div class="search-train-destination">
+		<button class="searchbtns btn btn-small btn-info" data-class="search-train-destination" id="searchtype3">Train B/W Stations</button>
+		<div class="search-train-destination search-hide" data-isopen="0">
 			<form method="POST" action="{% url 'placessearch' %}">
 				{% csrf_token %}
 				<label for="#from-input">From</label><br>
@@ -46,4 +35,45 @@
 			</form>
 		</div>
 	</div>
+	<div class="search-train-number searchbox">
+		<button class="searchbtns btn btn-small btn-info" data-class="search-train-number-div" id="searchtype1">Train Number</button>
+		<div class="search-train-number-div search-hide" data-isopen="0">
+			<form method="POST" action="{% url 'trainsearch' %}">
+				{% csrf_token %}
+				<label for="#train-number-input">Train Number</label><br>
+				<input type="text" id="train-number-input" name="trainnumber" placeholder="Eg: 40501"><br>
+				<button type="submit" class="submitbutton">Search</button>
+			</form>
+		</div>
+	</div>
+	<div class="search-station-name searchbox">
+		<button class="searchbtns btn btn-small btn-info" data-class="search-station-name-div" id="searchtype2">Station Name</button>
+		<div class="search-station-name-div search-hide" data-isopen="0">
+			<form method="POST" action="{% url 'stationsearch' %}">
+				{% csrf_token %}
+				<label for="#station-name-input">Station Name</label><br>
+				<input type="text" id="station-name-input" name="stationname" placeholder="Eg: Palavanthangal"><br>
+				<button type="submit" class="submitbutton">Search</button>
+			</form>
+		</div>
+	</div>
+</center>
+</div>
+</div>
+</div>
 {% endblock body %}
+{% block js %}
+<script>
+$(".searchbtns").on("click", function(){
+	var selector = "." + $(this).data("class");
+	if($(this).data("isOpen") == "1"){
+		$(".search-hide").hide();
+		$(this).data("isOpen", "0");
+	}
+	else{
+		$(selector).fadeIn();
+		$(this).data("isOpen", "1");
+	}
+});
+</script>
+{% endblock js %}
