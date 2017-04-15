@@ -18,7 +18,6 @@ from django.contrib import admin
 from train import views as v
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
     url(r'^$', v.home_view, name='home'),
     url(r'^trains/$', v.train_list.as_view(), name='trains'),
     url(r'^train/(?P<pk>\d{1,6})/$', v.train_view, name='train'),
