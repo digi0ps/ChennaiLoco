@@ -1,18 +1,13 @@
-{% extends "base.html" %} 
-{% block title %}
-Stations - Chennai Loco
-{% endblock title %}
-{% block body %} 
+{% extends "base.html" %} {% block title %} Stations - Chennai Loco {% endblock title %} {% block body %}
 <div class="container-fluid">
-<div class="row">
-{% for station in stations %}
-<div class="station col-xs-12 col-sm-4 col-sm-offset-1 text-center jumbotron">
-    <p>Station name: <a href="{% url 'station' station.slug %}">{{ station.name }}</a></p>
-    <p>Station number: {{ station.code }}</p>
-    <p>Station locality: {{ station.locality }}</p>
-    <p>Station pincode: {{ station.pincode }}</p>
-
-</div>
-{% endfor %}
-</div>
+    <div class="row">
+        {% for station in stations %}
+        <div class="station col-xs-12 col-sm-4 col-sm-offset-1 text-center jumbotron">
+            <p>Station name: <a href="{% url 'station' station.slug %}">{{ station.name }}</a></p>
+            <p>Station number: {{ station.code }}</p>
+            <p>Station locality: {{ station.locality }}</p>
+            <p>Station pincode: {{ station.pincode }}</p>
+        </div>
+        {% endfor %}
+    </div>
 </div> {% endblock body %}
