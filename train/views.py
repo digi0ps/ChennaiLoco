@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 # Models Import
 from train.models import Train, Station, Route
@@ -77,16 +78,19 @@ def train_search_view(request):
 		train = get_object_or_404(Train, number=number)
 		url = train.get_absolute_url()
 		return HttpResponseRedirect(url)
+	else:
+		return HttpResponseRedirect(reverse("search"))
 
 
 def station_search_view(request):
 	if request.method == "POST" and request.POST:
 		name = request.POST["stationname"]
 		name = name.replace(" ", "-").lower()
-		print(name)
 		station = get_object_or_404(Station, slug=name)
 		url = station.get_absolute_url()
 		return HttpResponseRedirect(url)
+	else:
+		return HttpResponseRedirect(reverse("search"))
 
 
 def places_search_view(request):
@@ -108,10 +112,16 @@ def places_search_view(request):
 				t_route = Route.objects.filter(train=train, station=t).select_related('station')[0]
 				r = result(train, f_route, t_route)
 				results.append(r)
-
-		return render(request, "searchresult.html", {
-			"results": results,
-			"from": f,
-			"to": t,
-		})
-
+				return render(request, "searchresult.html", {
+					"results": results,
+					"from": f,
+					"to": t,
+				})
+			else:
+				return render(request, "searchresult.html", {
+					"noresults": 1,
+					"from": f,
+					"to": t,
+				})
+	else:
+		return HttpResponseRedirect(reverse("search"))
