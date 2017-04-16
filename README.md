@@ -1,5 +1,6 @@
 # ChennaiLoco
-[![Build Status](https://travis-ci.com/digi0ps/ChennaiLoco.svg?token=1qd4LqrZLisWhxqZDWCe&branch=master)](https://travis-ci.com/digi0ps/ChennaiLoco)
+
+[![Build Status](https://travis-ci.org/digi0ps/ChennaiLoco.svg?branch=master)](https://travis-ci.org/digi0ps/ChennaiLoco)
 [![Updates](https://pyup.io/repos/github/digi0ps/ChennaiLoco/shield.svg?token=395e8e90-8e77-45a5-9b2f-ca308d4bc61a)](https://pyup.io/repos/github/digi0ps/ChennaiLoco/)
 [![Python 3](https://pyup.io/repos/github/digi0ps/ChennaiLoco/python-3-shield.svg?token=395e8e90-8e77-45a5-9b2f-ca308d4bc61a)](https://pyup.io/repos/github/digi0ps/ChennaiLoco/)
 
@@ -8,7 +9,7 @@ This project ( or as we call it the Chennai Loco ) deals with creating a web app
 
 
 ## Architecture 
-### Backed
+### Backend
 
 We are using Django, the Python framework as our backend. As Python being a high level language, Django follows the same principles of it by making the developer work easier with abstraction of complex workings.
 
