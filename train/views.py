@@ -1,10 +1,17 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
 
 # Models Import
 from train.models import Train, Station, Route
+
+# REST API Import
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from train.serializers import StationSerializer, TrainSerailizer
+
 
 # Custom Class definition
 
@@ -125,3 +132,17 @@ def places_search_view(request):
 				})
 	else:
 		return HttpResponseRedirect(reverse("search"))
+
+
+class train_api(APIView):
+	def get(self, request):
+		trains = Train.objects.all()
+		serializer = TrainSerailizer(trains, many=True)
+		return Response(serializer.data)
+
+
+class station_api(APIView):
+	def get(self, request, format="json"):
+		stations = Station.objects.all()
+		serializer = StationSerailizer(stations, many=True)
+		return Response(serializer.data)
