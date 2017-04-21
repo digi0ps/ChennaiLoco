@@ -144,5 +144,5 @@ class train_api(APIView):
 class station_api(APIView):
 	def get(self, request, format="json"):
 		stations = Station.objects.all()
-		serializer = StationSerailizer(stations, many=True)
+		serializer = StationSerializer(stations, many=True)
 		return Response(serializer.data)

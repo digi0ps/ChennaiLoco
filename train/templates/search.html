@@ -1,4 +1,10 @@
-{% extends "base.html" %} {% block title %} Search Trains - Chennai Loco {% endblock title %} {% block body %}
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %} Search Trains - Chennai Loco {% endblock title %} 
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/easy-autocomplete.css' %}">
+{% endblock head %}
+{% block body %}
 <style type="text/css">
 .searchbox {
     margin: 10px auto;
@@ -11,6 +17,13 @@
 
 .hide {
     display: block;
+}
+.easy-autocomplete-container ul li{
+    width: 172px;
+    padding: 0px;
+}
+.eac-item {
+    width: inherit;
 }
 </style>
 <div class="container">
@@ -66,7 +79,9 @@
     </div>
 </div>
 {% endblock body %} {% block js %}
+<script src="{% static 'js/easy-autocomplete.min.js' %}"></script>
 <script>
+// Search Buttons
 $(".searchbtns").on("click", function() {
     var selector = "." + $(this).data("class");
     if ($(this).data("isOpen") == "1") {
@@ -77,5 +92,34 @@ $(".searchbtns").on("click", function() {
         $(this).data("isOpen", "1");
     }
 });
+
+// Ajax autocomplete
+var stationOptions = {
+    url: "{% url 'stationapi' %}",
+    getValue: "name",
+    list: {
+        match: {
+            enabled: true
+        }
+    }
+};
+
+var trainOptions = {
+    url: "{% url 'trainapi' %}",
+    getValue: function(element){
+        var itemName = element.number + " - " + element.name;
+        return itemName;
+    },
+    list: {
+        match: {
+            enabled: true
+        }
+    }
+};
+
+$("#from-input").easyAutocomplete(stationOptions);
+$("#to-input").easyAutocomplete(stationOptions);
+$("#station-name-input").easyAutocomplete(stationOptions);
+$("#train-number-input").easyAutocomplete(trainOptions);
 </script>
 {% endblock js %}
