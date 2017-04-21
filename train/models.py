@@ -50,3 +50,9 @@ class Route(models.Model):
 
 	def __str__(self):
 		return self.train.name + " at " + self.station.name
+
+
+class Review(models.Model):
+	station = models.ForeignKey(Station, on_delete=models.CASCADE)
+	rating = models.IntegerField()
+	feedback = models.CharField(max_length=500)

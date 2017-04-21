@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block body %}
+	<div class="login">
+	<h3> Login </h3>
+			<form action="{% url 'login' %}" method="POST" id="loginform">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<input type="submit" class="btn btn-info" value="Submit" />
+			</form>
+	</div>
+	<div class="register">
+		<h3>Register</h3>
+		<form action="{% url 'register' %}" method="POST">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" class="btn btn-danger" value="Submit" />
+		</form>
+		<p>
+	</div>
+{% endblock body %}

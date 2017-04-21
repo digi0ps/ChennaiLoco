@@ -19,6 +19,8 @@ from train import views as v
 
 urlpatterns = [
     url(r'^$', v.home_view, name='home'),
+    url(r'^auth/$', v.auth_view, name='login'),
+    url(r'^register/$', v.auth_view, name='register'),
     url(r'^trains/$', v.train_list.as_view(), name='trains'),
     url(r'^train/(?P<pk>\d{1,6})/$', v.train_view, name='train'),
     url(r'^stations/$', v.station_list.as_view(), name='stations'),

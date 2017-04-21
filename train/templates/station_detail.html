@@ -17,4 +17,24 @@
             <p> {{ r.train.name }}:{{ r.train.number }}</a> - {{ r.time }}</p>
         {% endfor %}
     </div>
+    <div class="reviews">
+        {% if request.user.is_authenticated %}
+            <div>
+            Been here? Post a review then! 😄
+            </div>
+        {% else %}
+            <div>
+            <a href="{% url 'login' %}">Login</a> to post a review.
+            </div>
+        {% endif %}
+        Reviews for {{ station.name }}:
+        <br>
+        {% for review in station.review_set.all %}
+            <div class="review col-sm-6 col-sm-offset-3">
+            <p class="lead">Rating: {{ review.rating }}</p>
+            <p class="lead">Review: {{ review.feedback }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
     {% endblock body %}

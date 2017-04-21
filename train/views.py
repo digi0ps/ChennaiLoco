@@ -2,15 +2,19 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate, login
 
 # Models Import
-from train.models import Train, Station, Route
+from train.models import Train, Station, Route, Review
 
 # REST API Import
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from train.serializers import StationSerializer, TrainSerailizer
+
+# Form Import
+from train.forms import AuthForm
 
 
 # Custom Class definition
@@ -146,3 +150,26 @@ class station_api(APIView):
 		stations = Station.objects.all()
 		serializer = StationSerializer(stations, many=True)
 		return Response(serializer.data)
+
+
+def auth_view(request):
+	if request.method == "POST" and request.POST:
+		userdetails = AuthForm(request.POST)
+		if userdetails.is_valid():
+			cd = userdetails.cleaned_data
+			print(cd)
+			user = authenticate(username=cd["username"], password=cd["password"])
+			if user is not None:
+				login(request, user)
+				return HttpResponseRedirect(reverse('home'))
+			else:
+				return render(request, "auth.html", {"failed": 1})
+
+	elif request.method == "GET":
+		form = AuthForm()
+		return render(request, "auth.html", {"form": form})
+
+
+def register(request):
+	if request.method == "POSt" and request.POST:
+		pass
