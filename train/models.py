@@ -56,3 +56,15 @@ class Review(models.Model):
 	station = models.ForeignKey(Station, on_delete=models.CASCADE)
 	rating = models.IntegerField()
 	feedback = models.CharField(max_length=500)
+
+	def __str__(self):
+		return self.station.name + ": " + self.feedback[:30]
+
+
+class Location(models.Model):
+	station = models.ForeignKey(Station, on_delete=models.CASCADE)
+	lat = models.DecimalField(max_digits=10, decimal_places=7)
+	lng = models.DecimalField(max_digits=10, decimal_places=7)
+
+	def __str__(self):
+		return self.station.name
