@@ -2,7 +2,9 @@
 
 # TODO: Define Function for reading with an argument for specifying the model
 # TODO: Fetch the model and the text file based on the argument passed
-from train.models import Train, Station, Route
+from train.models import Train, Station, Route, Location
+from ChennaiLoco.secret_settings import API_KEY
+import googlemaps
 
 # Constants - if you want to change anything change here
 
@@ -120,6 +122,23 @@ def route_data():
 				r.save()
 				print("Saved route " + str(r.train.number) + " - " + r.station.code)
 	print("Insertion done. Quiting.")
+
+
+def location_data():
+	Location.objects.all().delete()
+	maps = googlemaps.Client(key=API_KEY)
+	stations = Station.objects.all()
+	for station in stations:
+		print("Fethcing geocode for " + station.name)
+		result = maps.geocode(station.name + " Railway Station")
+		if result:
+			l = Location()
+			l.station = station
+			l.lat = result[0]["geometry"]["location"]["lat"]
+			l.lng = result[0]["geometry"]["location"]["lng"]
+			l.save()
+		else:
+			print("ERROR: Geocode not found for " + station.name)
 
 
 def populate_db():

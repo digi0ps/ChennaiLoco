@@ -1,4 +1,12 @@
-{% extends "base.html" %} {% block title %} {{ train.number }} - Chennai Loco {% endblock title %} {% block body %}
+{% extends "base.html" %} {% block title %} {{ train.number }} - Chennai Loco {% endblock title %} 
+{% block head %}
+<style>
+#map {
+        height: 400px;
+        width: 100%;
+}
+</style>
+{% endblock head %} {% block body %}
 <center>
     <h1>Train Detail</h1>
     <div class="details">
@@ -11,4 +19,41 @@
         <p> {{ r.station.name }} - {{ r.time }} </p>
         {% endfor %}
     </div>
+    <div class="station-map col-md-6 col-md-offset-3">
+        <div id="map"></div>
+    </div>
+    <script>
+        var locations = [
+        {% for r in route %}
+            {lat: {{ r.station.location_set.first.lat }}, lng: {{ r.station.location_set.first.lng }}},
+        {% endfor %}
+        ]
+
+      function initMap() {
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: locations[Math.floor(locations.length/2)]
+        });
+
+        var markers = locations.map(function(latlong, index){
+            return new google.maps.Marker({
+                position: latlong,
+                label: (index+1).toString(),
+                map: map
+            });
+        });
+
+        var trainPath = new google.maps.Polyline({
+            path: markers,
+            strokeColor: "#FF0000",
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+          });
+
+        trainPath.setMap(map);
+
+      }
+    </script><script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApm4oDwEITYu-BUCkhoel8FbXUhBu3U-8&callback=initMap">
+    </script>
     {% endblock body %}

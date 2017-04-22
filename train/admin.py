@@ -1,5 +1,5 @@
 from django.contrib import admin
-from train.models import Train, Station, Route, Review
+from train.models import Train, Station, Route, Review, Location
 # Register your models here.
 
 
@@ -10,3 +10,4 @@ admin.site.register(Train)
 admin.site.register(Station)
 admin.site.register(Route)
 admin.site.register(Review)
+admin.site.register(Location)
