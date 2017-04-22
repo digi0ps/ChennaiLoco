@@ -1,4 +1,12 @@
 {% extends "base.html" %} {% block blockname %} {{ station.name }} - ChennaiLoco {% endblock blockname %}
+{% block head %}
+<style>
+#map {
+        height: 400px;
+        width: 100%;
+}
+</style>
+{% endblock head %}
 {% block body %}
 <center>
     <h3>Station Detail</h3>
@@ -11,13 +19,20 @@
         <p>Major Station</p>
         {% endif %}
     </div>
-    <div class="trains">
+
+    <div class="col-md-6 col-md-offset-3">
+        <div id="map"></div>
+    </div>
+<br>
+    <div class="row trains">
         List of trains going through:
         <br> {% for r in trainroutes %}
         <a href="{% url 'train' r.train.number %}">
             <p> {{ r.train.name }}:{{ r.train.number }}</a> - {{ r.time }}</p>
         {% endfor %}
     </div>
+
+
     <div class="reviews">
         {% if request.user.is_authenticated %}
             <div>
@@ -49,3 +64,19 @@
         {% endfor %}
     </div>
     {% endblock body %}
+    {% block js %}
+    <script>
+        function initMap() {
+        var station = {lat: {{ station.location_set.first.lat }}, lng: {{ station.location_set.first.lng }}};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: station
+        });
+        var marker = new google.maps.Marker({
+          position: station,
+          map: map
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApm4oDwEITYu-BUCkhoel8FbXUhBu3U-8&callback=initMap"></script>
+    {% endblock js %}
