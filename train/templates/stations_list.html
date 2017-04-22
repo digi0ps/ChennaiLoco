@@ -1,13 +1,30 @@
 {% extends "base.html" %} {% block title %} Stations - Chennai Loco {% endblock title %} {% block body %}
-<div class="container-fluid">
+<div class="container">
     <div class="row">
         {% for station in stations %}
-        <div class="station col-xs-12 col-sm-4 col-sm-offset-1 text-center jumbotron">
-            <p>Station name: <a href="{% url 'station' station.slug %}">{{ station.name }}</a></p>
-            <p>Station number: {{ station.code }}</p>
-            <p>Station locality: {{ station.locality }}</p>
-            <p>Station pincode: {{ station.pincode }}</p>
+        <div class="col s12 m6 station z-depth-2 scale-transition scale-out">
+          <div class="card blue darken-2">
+            <div class="card-content white-text center">
+              <span class="card-title">{{ station.name }} ({{ station.code }})</span>
+              <p>Location: {{ station.locality }}, Chennai - {{ station.pincode }}</p>
+              <p>Trains passing through: {{ station.trains.count }}</p>
+            </div>
+            <div class="card-action center">
+              <a href="{% url 'station' station.slug %}" class="view-station">View station info</a>
+            </div>
+          </div>
         </div>
         {% endfor %}
     </div>
 </div> {% endblock body %}
+{% block js %}
+<script>
+$(".station").each(function(i, ele){
+    //base time for the start of the animation
+    var base = 70;
+    setTimeout(function(){
+        $(ele).addClass("scale-in");
+    }, base*i);
+})
+</script>
+{% endblock js %}

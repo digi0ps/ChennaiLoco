@@ -1,20 +1,43 @@
 {% extends "base.html" %}
 {% block body %}
-	<div class="login">
-	<h3> Login </h3>
+<main class="auth">
+<div class="row container main">
+	<div class="login center col s12 m6 push-m3 box scale-transition scale-out">
+	<h4 class="teal-text"> Login </h4>
 			<form action="{% url 'auth' %}" method="POST" id="loginform">
 				{% csrf_token %}
 				{{ form.as_p }}
-				<input type="submit" class="btn btn-info" value="Submit" />
+				<input type="submit" class="btn btn-info" value="Login" />
 			</form>
+			<div class="change">
+			<p class="flow-text">Not an user yet? <a href="#" class="auth-link teal-text" data-ele=".register">Register</a></p>
+			</div>
 	</div>
-	<div class="register">
+	<div class="register center col s12 m6 pull-m3 box scale-transition scale-out">
 		<h3>Register</h3>
 		<form action="{% url 'register' %}" method="POST">
 			{% csrf_token %}
 			{{ form.as_p }}
-			<input type="submit" class="btn btn-danger" value="Submit" />
+			<input type="submit" class="btn btn-danger" value="Register" />
 		</form>
-		<p>
+		<div class="change">
+			<p class="flow-text">Already an user? <a href="#" class="auth-link teal-text" data-ele=".login">Login</a></p>
+		</div>
 	</div>
+</div>
+</main>
 {% endblock body %}
+{% block js %}
+<script>
+setTimeout(function(){
+	$(".login").addClass("scale-in").removeClass("scale-out")
+	}, 300)
+$(".change a").on("click", function(e){
+	var ele = $(e.target).data("ele");
+	$(e.target).parents(".box").removeClass("scale-in").addClass("scale-out");
+	setTimeout(function(){
+		$(ele).addClass("scale-in").removeClass("scale-out");
+	},500);
+});
+</script>
+{% endblock js %}
