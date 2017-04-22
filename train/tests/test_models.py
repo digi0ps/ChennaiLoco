@@ -1,7 +1,7 @@
 from django.test import TestCase
 from train.models import Train, Route, Station
 TRAIN_FIELDS = ['route', 'number', 'name', 'stations']
-STATION_FIELDS = ['stations', 'route', 'code', 'name', 'locality', 'pincode', 'line', 'majorStation', 'slug']
+STATION_FIELDS = ['stations', 'route', 'review', 'code', 'name', 'locality', 'pincode', 'line', 'majorStation', 'slug']
 ROUTE_FIELDS = ['id', 'train', 'station', 'time']
 
 
@@ -63,6 +63,7 @@ class TestStationModel(TestCase):
 	def test_field_names(self):
 		fields = Station._meta.get_fields()
 		field_names = [f.name for f in fields]
+		print(field_names)
 		self.assertEqual(field_names, STATION_FIELDS)
 		print("TestStationModel.test_field_names succeeded.")
 
