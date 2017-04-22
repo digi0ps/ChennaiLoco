@@ -1,7 +1,7 @@
 from django.test import TestCase
 from train.models import Train, Route, Station
 TRAIN_FIELDS = ['route', 'number', 'name', 'stations']
-STATION_FIELDS = ['stations', 'route', 'review', 'code', 'name', 'locality', 'pincode', 'line', 'majorStation', 'slug']
+STATION_FIELDS = ['stations', 'route', 'review', 'location', 'code', 'name', 'locality', 'pincode', 'line', 'majorStation', 'slug']
 ROUTE_FIELDS = ['id', 'train', 'station', 'time']
 
 
