@@ -1,16 +1,46 @@
-{% extends "base.html" %} {% block title %} {{ from.name }} to {{ to.name }} {% endblock title %} {% block body %}
-<h3>From: {{ from.name }} ({{ from.code }})</h3>
-<h3>To: {{ to.name }} ({{ to.code }})</h3>
-<div class="results">
+{% extends "base.html" %} {% load staticfiles %}{% block title %} {{ from.name }} to {{ to.name }} {% endblock title %} 
+{% block head %}
+  <style type="text/css">
+      body {
+        background-color: #F5F5F5;
+      }
+      a {
+        color: #aaa;
+        border-bottom: 0.5px dashed teal;
+      }
+  </style>  
+{% endblock head %}
+{% block body %}
+<main>
+<div class="results container">
 	{% if noresults %}
 		Ooops. Sorry no trains found.
 	{% endif %}
-    <hr> {% for result in results %}
-    <div class="results" id="{{ forloop.counter }}">
-        <strong> {{ result.train.name }} - <a href='{% url "train" result.train.number %}'>{{ result.train.number }}</a></strong>
-        <p> <a href="{% url 'station' result.f.station.slug %}">{{ result.f.station.name }}</a> - {{ result.f.time }} </p>
-        <p> <a href="{% url 'station' result.t.station.slug %}">{{ result.t.station.name }}</a> - {{ result.t.time }} </p>
+    {% for result in results %}
+    <div class="col s12 m7 result center scale-transition scale-out" id="result{{ forloop.counter }}">
+    <div class="card horizontal">
+      <div class="card-stacked">
+        <div class="card-content">
+          <h5 class="teal-text">{{ result.train.name }} - {{ result.train.number }}</strong><h5>
+        <p> <a href="{% url 'station' result.f.station.slug %}">{{ result.f.station.name }}</a> - <span class="chip">{{ result.f.time }}</span> </p>
+        <p> <a href="{% url 'station' result.t.station.slug %}">{{ result.t.station.name }}</a> - <span class="chip">{{ result.t.time }}</span> </p>
+        </div>
+        <div class="card-action left">
+          <a href='{% url "train" result.train.number %}'>View this train</a>
+        </div>
+      </div>
     </div>
-    <hr> {% endfor %}
+  </div>
+    {% endfor %}
 </div>
+</main>
 {% endblock body %}
+{% block js %}
+<script>
+$(document).ready(function(){
+    setTimeout(function(){
+        $(".scale-transition").addClass("scale-in");
+    }, 400);
+});
+</script>
+{% endblock js %}

@@ -1,82 +1,107 @@
-{% extends "base.html" %} {% block blockname %} {{ station.name }} - ChennaiLoco {% endblock blockname %}
-{% block head %}
-<style>
-#map {
-        height: 400px;
-        width: 100%;
-}
-</style>
-{% endblock head %}
+{% extends "base.html" %} {% block title %} {{ station.name }} - ChennaiLoco {% endblock title %}
 {% block body %}
-<center>
-    <h3>Station Detail</h3>
-    <div class="details">
-        <p><strong>Name: </strong>{{ station.name }}</p>
-        <p><strong>Code: </strong>{{ station.code }}</p>
-        <p><strong>Locality: </strong>{{ station.locality }}</p>
-        <p><strong>Pincode: </strong>{{ station.pincode }}</p>
-        {% if station.majorStation %}
-        <p>Major Station</p>
-        {% endif %}
+<main>
+<div class="container row">
+    <div class="col s12 m6 push-m3 center">
+        <div class="card horizontal z-depth-4">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <p class="flow-text">{{ station.name }}</p>
+                    <p class="flow-text">{{ station.code }}</p>
+                    <p class="flow-text">{{ station.locality }}</p>
+                    <p class="flow-text">{{ station.pincode }}</p>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="col-md-6 col-md-offset-3">
+</div>
+<div class="container row">
+<hr>
+    <div class="station-table z-depth-2 col s12 m6">
+        <table class="bordered highlight">
+            <thead class="center">
+                <tr>
+                    <th>Train</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in trainroutes %}
+                    <tr>
+                        <td>{{ r.train.number }}</td>
+                        <td>{{ r.time }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col s12 m6">
         <div id="map"></div>
     </div>
-<br>
-    <div class="row trains">
-        List of trains going through:
-        <br> {% for r in trainroutes %}
-        <a href="{% url 'train' r.train.number %}">
-            <p> {{ r.train.name }}:{{ r.train.number }}</a> - {{ r.time }}</p>
-        {% endfor %}
-    </div>
-
-
-    <div class="reviews">
+</div>
+<div class="container row">
+<hr>
+    <div class ="review-input col s12 m6 push-m3 center">
         {% if request.user.is_authenticated %}
-            <div>
-            Been here? Post a review then! 😄
-            <div class ="review-input">
+            <p class="flow-text">
+                Been here? Post a review then! 😄
+            </p>
             <form action="{% url 'review' station.slug %}" method="POST">
-            {% csrf_token %}
-            <label for="id_rating">Rating</label>
-            <input type="number" max="10" min="0" name="rating" id="id_rating">
-            <label for="id_feedback">Review</label>
-            <textarea  name="feedback" id="id_feedback"></textarea>
-            <button type="submit" class="btn btn-success">Post</button>
+                {% csrf_token %}
+                <label for="id_rating">Rating</label>
+                <p class="range-field">
+                    <input type="range" id="id_rating" min="0" max="10" name="rating" />
+                </p>
+                <label for="id_feedback">Review</label>
+                <textarea  class="materialize-textarea" name="feedback" placeholder="Write your review here." id="id_feedback"></textarea>
+                <button type="submit" class="btn btn-success">Post</button>
             </form>
-            </div>
-            </div>
-        {% else %}
-            <div>
+        </div>
+    {% else %}
+        <div class="center">
             <a href="{% url 'auth' %}">Login</a> to post a review.
+        </div>
+    {% endif %}
+    <div class="reviews col s12 m12">
+        <p class="center flow-text">
+            {% if station.review_set.count %}
+                Reviews for {{ station.name }}:
+            {% else %}
+                No reviews yet 😞
+            {% endif %}
+        </p>
+        <div class="row">
+            {% for review in station.review_set.all %}
+            <div class="review col s12 m6">
+                <div class="card horizontal z-depth-2">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="user"><span class="green-text darken-3">{{ user.username }}</span> says,<p>
+                            <p class="feedback">{{ review.feedback }}</p>
+                            <p class="rating">Rating: <span class="chip">{{ review.rating }}/10</span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% endif %}
-        Reviews for {{ station.name }}:
-        <br>
-        {% for review in station.review_set.all %}
-            <div class="review col-sm-6 col-sm-offset-3">
-            <p class="lead">Rating: {{ review.rating }}</p>
-            <p class="lead">Review: {{ review.feedback }}</p>
-            </div>
-            <hr>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
-    {% endblock body %}
-    {% block js %}
-    <script>
-        function initMap() {
-        var station = {lat: {{ station.location_set.first.lat }}, lng: {{ station.location_set.first.lng }}};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 12,
-          center: station
-        });
-        var marker = new google.maps.Marker({
-          position: station,
-          map: map
-        });
-      }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApm4oDwEITYu-BUCkhoel8FbXUhBu3U-8&callback=initMap"></script>
-    {% endblock js %}
+</div>
+</main>
+{% endblock body %}
+{% block js %}
+<script>
+function initMap() {
+var station = {lat: {{ station.location_set.first.lat }}, lng: {{ station.location_set.first.lng }}};
+var map = new google.maps.Map(document.getElementById('map'), {
+zoom: 14,
+center: station
+});
+var marker = new google.maps.Marker({
+position: station,
+map: map
+});
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApm4oDwEITYu-BUCkhoel8FbXUhBu3U-8&callback=initMap"></script>
+{% endblock js %}

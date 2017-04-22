@@ -1,21 +1,126 @@
-* {
-	box-sizing: border-box;
-}
-body {
-}
-h1 {
-	color: #1976D2;
-}
-.container {
-	margin-top: 50px;
-	background-color: #fff;
-	border-radius: 10px;
-	height: 600px;
-}
 a {
-	font-size: 15px;
+    color: teal;
+    border-bottom: 0.5px dashed white;
 }
 
 a:hover {
-	text-decoration: none;
+    text-decoration: none;
+}
+
+nav {
+    background-color: #f44336;
+}
+
+nav a {
+    border-bottom: none;
+}
+
+.nav-container {
+    margin: 0px 20px;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #fcfcfc;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.parallax-container {
+    height: 200px;
+}
+
+.content-container {
+    height: 400px;
+    overflow-y: scroll;
+}
+
+.flow-text {
+    font-size: 22px;
+}
+
+.scroll-links {
+    border-bottom: none;
+    font-size: 25px;
+}
+
+div.tap-target-content {
+    left: 20px !important;
+    padding-right: 20px !important;
+    color: #fff;
+}
+
+footer.page-footer {
+    background-color: #3b444b;
+}
+
+@media only screen and (min-width: 500px) {
+    .parallax-container,
+    {
+        height: 250px;
+    }
+}
+
+@media only screen and (min-width: 750px) {
+    .parallax-container,
+    .content-container {
+        height: 350px;
+    }
+}
+
+
+/* searchresults */
+
+.results {
+    margin-top: 20px;
+}
+
+/* auth */
+.auth {
+	background-color: rgba(165, 165, 165, 0.07);
+}
+.main {
+	margin-top: 10vh;
+}
+
+.box {
+	padding: 10px;
+	background-color: #fff;
+}
+.change p.flow-text {
+	font-size: 15px;
+}
+
+/* train list */
+.trains-container {
+	margin-top: 5vh;
+}
+.view-train {
+	border-bottom: none;
+	color: white;
+}
+
+/* train detail */
+#map {
+        height: 500px;
+        width: 100%;
+}
+.station-table {
+	background-color: white;
+	height: 500px;
+	overflow-y: scroll;
+}
+/* station detail */
+.review {
+	text-align: right;
+}
+.review:nth-child(odd){
+	text-align: left;
+}
+.review .card {
+	height: 150px;
 }
