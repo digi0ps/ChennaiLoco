@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponseRedirect, Http404
 from django.core.urlresolvers import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 # Models Import
 from train.models import Train, Station, Route, Review
@@ -13,8 +14,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from train.serializers import StationSerializer, TrainSerailizer
 
-# Form Import
-from train.forms import AuthForm
+# Forms Import
+from train.forms import AuthForm, ReviewForm
 
 
 # Custom Class definition
@@ -153,6 +154,10 @@ class station_api(APIView):
 
 
 def auth_view(request):
+	if request.user.is_authenticated:
+		logout(request)
+		return HttpResponseRedirect(reverse('home'))
+
 	if request.method == "POST" and request.POST:
 		userdetails = AuthForm(request.POST)
 		if userdetails.is_valid():
@@ -163,13 +168,33 @@ def auth_view(request):
 				login(request, user)
 				return HttpResponseRedirect(reverse('home'))
 			else:
-				return render(request, "auth.html", {"failed": 1})
+				return render(request, "auth.html", {"form": userdetails, "failed": 1})
 
 	elif request.method == "GET":
 		form = AuthForm()
 		return render(request, "auth.html", {"form": form})
 
 
-def register(request):
-	if request.method == "POSt" and request.POST:
-		pass
+def register_view(request):
+	if request.method == "POST" and request.POST:
+		userdetails = AuthForm(request.POST)
+		if userdetails.is_valid():
+			cd = userdetails.cleaned_data
+			user = User.objects.create_user(username=cd["username"], password=cd["password"])
+			login(request, user)
+			return HttpResponseRedirect(reverse("home"))
+		else:
+			return render(request, "auth.html", {"form": userdetails, "invalid": 1})
+
+
+def review_view(request, slug):
+	if request.method == "POST" and request.POST:
+		review = ReviewForm(request.POST)
+		if review.is_valid():
+			cd = review.cleaned_data
+			station = get_object_or_404(Station, slug=slug)
+			r = Review.objects.create(station=station, rating=cd["rating"], feedback=cd["feedback"])
+			return HttpResponseRedirect(station.get_absolute_url())
+		else:
+			return render(request, "station_detail.html", {"station": station, "invalid": 1})
+

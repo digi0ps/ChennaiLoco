@@ -2,7 +2,7 @@
 {% block body %}
 	<div class="login">
 	<h3> Login </h3>
-			<form action="{% url 'login' %}" method="POST" id="loginform">
+			<form action="{% url 'auth' %}" method="POST" id="loginform">
 				{% csrf_token %}
 				{{ form.as_p }}
 				<input type="submit" class="btn btn-info" value="Submit" />

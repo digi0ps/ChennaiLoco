@@ -16,6 +16,11 @@
     <a href="{% url 'home' %}">
         <h1 class="text-center">ChennaiLoco</h1>
     </a>
+    <div class="text-info text-center">
+    {% if user.is_authenticated %}
+        Logged in as {{ user.username }}. <a class="logout" href="{% url 'auth' %}">Logout</a>
+    {% endif %}
+    </div>
     {% block body %} {% endblock body %}
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

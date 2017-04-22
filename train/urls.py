@@ -19,12 +19,13 @@ from train import views as v
 
 urlpatterns = [
     url(r'^$', v.home_view, name='home'),
-    url(r'^auth/$', v.auth_view, name='login'),
-    url(r'^register/$', v.auth_view, name='register'),
+    url(r'^auth/$', v.auth_view, name='auth'),
+    url(r'^register/$', v.register_view, name='register'),
     url(r'^trains/$', v.train_list.as_view(), name='trains'),
     url(r'^train/(?P<pk>\d{1,6})/$', v.train_view, name='train'),
     url(r'^stations/$', v.station_list.as_view(), name='stations'),
     url(r'^station/(?P<slug>[\w-]+)/$', v.station_view, name='station'),
+    url(r'^station/(?P<slug>[\w-]+)/review$', v.review_view, name='review'),
     url(r'^search/$', v.search_view, name='search'),
     url(r'^search/train/$', v.train_search_view, name='trainsearch'),
     url(r'^search/station/$', v.station_search_view, name='stationsearch'),

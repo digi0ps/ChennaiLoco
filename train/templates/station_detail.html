@@ -21,10 +21,20 @@
         {% if request.user.is_authenticated %}
             <div>
             Been here? Post a review then! 😄
+            <div class ="review-input">
+            <form action="{% url 'review' station.slug %}" method="POST">
+            {% csrf_token %}
+            <label for="id_rating">Rating</label>
+            <input type="number" max="10" min="0" name="rating" id="id_rating">
+            <label for="id_feedback">Review</label>
+            <textarea  name="feedback" id="id_feedback"></textarea>
+            <button type="submit" class="btn btn-success">Post</button>
+            </form>
+            </div>
             </div>
         {% else %}
             <div>
-            <a href="{% url 'login' %}">Login</a> to post a review.
+            <a href="{% url 'auth' %}">Login</a> to post a review.
             </div>
         {% endif %}
         Reviews for {{ station.name }}:
