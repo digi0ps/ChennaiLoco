@@ -2,6 +2,9 @@
 <h3>From: {{ from.name }} ({{ from.code }})</h3>
 <h3>To: {{ to.name }} ({{ to.code }})</h3>
 <div class="results">
+	{% if noresults %}
+		Ooops. Sorry no trains found.
+	{% endif %}
     <hr> {% for result in results %}
     <div class="results" id="{{ forloop.counter }}">
         <strong> {{ result.train.name }} - <a href='{% url "train" result.train.number %}'>{{ result.train.number }}</a></strong>
