@@ -124,3 +124,43 @@ footer.page-footer {
 .review .card {
 	height: 150px;
 }
+
+/* autocomplete */
+.easy-autocomplete-container {
+	width: 394px;
+}
+.easy-autocomplete-container ul{
+	width: inherit;
+    position: absolute;
+    top: 70%;
+    left: 10px;
+    z-index: 1000;
+    display:none;
+    float: left;
+    min-width: 160px;
+    max-height: 125px;
+    overflow-y: scroll;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    background-clip: padding-box;
+}
+
+.eac-item{
+	line-height: 25px;
+    text-align: left;
+    padding: 5px 5px;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(200,50,50,0.1);
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+}
+*/
