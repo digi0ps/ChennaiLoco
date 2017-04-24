@@ -1,9 +1,9 @@
-{% extends "base.html" %} {% block title %} Stations - Chennai Loco {% endblock title %} {% block body %}
-<div class="container">
+{% extends "base.html" %} {% block title %} Stations - C3ennai Loco {% endblock title %} {% block body %}
+<div class="container list-container">
     <div class="row">
         {% for station in stations %}
-        <div class="col s12 m6 station z-depth-2 scale-transition scale-out">
-          <div class="card blue darken-2">
+        <div class="col s12 m6 station scale-transition scale-out">
+          <div class="card blue darken-2 z-depth-2">
             <div class="card-content white-text center">
               <span class="card-title">{{ station.name }} ({{ station.code }})</span>
               <p>Location: {{ station.locality }}, Chennai - {{ station.pincode }}</p>
