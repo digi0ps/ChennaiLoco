@@ -19,10 +19,20 @@
     <nav>
     <div class="nav-wrapper nav-container">
       <a href="{% url 'home' %}" class="brand-logo">ChennaiLoco</a>
+      <a href="#" data-activates="sidenav" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
-        <li><a href="#">
-        Hi {{ user.username }}.</a></li>
+        <li>Hi {{ user.username }}.</li>
+        <li><a class="logout" href="{% url 'auth' %}">Logout</a></li>
+        {% else %}
+        <li><a class="login" href="{% url 'auth' %}">Login</a></li>
+        {% endif %}
+        <li><a href="{% url 'trains' %}">Trains</a></li>
+        <li><a href="{% url 'stations' %}">Stations</a></li>
+      </ul>
+      <ul class="side-nav center" id="sidenav">
+        {% if user.is_authenticated %}
+        <li>Hi {{ user.username }}.</li>
         <li><a class="logout" href="{% url 'auth' %}">Logout</a></li>
         {% else %}
         <li><a class="login" href="{% url 'auth' %}">Login</a></li>
@@ -40,12 +50,12 @@
               <div class="col l6 s12">
                 <h5 class="white-text">© ChennaiLoco 2017</h5>
                 <p class="grey-text text-lighten-4">Made with ♥ in VIT.</p>
-                <p class="grey-text text-lighten-4">View source on <a href="https://github.com/digi0ps/ChennaiLoco">Github</a></p>
+                <p class="grey-text text-lighten-4">View source on <a href="https://github.com/digi0ps/ChennaiLoco" target="blank">Github</a></p>
               </div>
-              <div class="col l4 offset-l2 s12">
+              <div class="col l4 offset-l2 hide-on-small-only">
                 <h5 class="white-text">Group Members</h5>
                 <ul>
-                  <li><a class="grey-text text-lighten-3" href="#!">Sriram R</a></li>
+                  <li><a class="grey-text text-lighten-3" href="https://github.com/digi0ps" target="blank">Sriram R</a></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Sai Prakash</a></li>
                   <li><a class="grey-text text-lighten-3" href="#!">Jagadeesh T</a></li>
                 </ul>
@@ -57,6 +67,7 @@
     <script src="{% static 'js/materialize.min.js' %}"></script>
     <script src="{% static 'js/animatescroll/animatescroll.js' %}"></script>
     <script>
+    $(".button-collapse").sideNav();
     $(".scroll-links").on("click", function(e){
       e.preventDefault();
       var element = "#" + this.href.split("#")[1];

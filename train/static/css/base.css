@@ -9,6 +9,11 @@ a:hover {
 
 nav {
     background-color: #f44336;
+    height: 70px;
+}
+
+nav .brand-logo {
+    margin-top:5px;
 }
 
 nav a {
@@ -17,6 +22,21 @@ nav a {
 
 .nav-container {
     margin: 0px 20px;
+}
+
+.side-nav {
+    background-color: #f44336;
+}
+.button-collapsible i {
+    color: white;
+}
+.side-nav li {
+    padding-top:10px;
+}
+.side-nav li>a{
+    color: white;
+    font-size: 1.5em;
+    border-bottom: 1px white solid;
 }
 
 body {
@@ -31,12 +51,19 @@ main {
 }
 
 .parallax-container {
-    height: 200px;
+    height: 300px;
 }
 
 .content-container {
     height: 400px;
-    overflow-y: scroll;
+}
+
+.content-container .header{
+    font-size: 2em;
+}
+
+.content-container .flow-text {
+    font-size: 1.5em;
 }
 
 .flow-text {
@@ -96,6 +123,9 @@ footer.page-footer {
 }
 
 /* train list */
+.list-container {
+    margin-top: 10px;
+}
 .trains-container {
 	margin-top: 5vh;
 }

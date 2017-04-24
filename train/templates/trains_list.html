@@ -1,10 +1,10 @@
 {% extends "base.html" %} {% block title %} Trains - ChennaiLoco {% endblock title %} {% block body %}
 <main>
-<div class="container station-container">
+<div class="container list-container">
     <div class="row">
         {% for train in trains %}
-        <div class="col s12 m6 train z-depth-2 scale-transition scale-out">
-          <div class="card blue-grey lighten-1">
+        <div class="col s12 m6 train scale-transition scale-out">
+          <div class="card blue-grey lighten-1 z-depth-3">
             <div class="card-content white-text center">
               <span class="card-title">{{ train.name }} - {{ train.number }}</span>
               <p>Starts at {{ train.stations.first.name }} and ends at {{ train.stations.last.name }} stopping at {{ train.stations.count }} stations in between.</p>
