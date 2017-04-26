@@ -24,19 +24,18 @@ nav a {
     margin: 0px 20px;
 }
 
-.side-nav {
-    background-color: #f44336;
+.dropdown-button {
+    margin-top: 5px;
 }
-.button-collapsible i {
-    color: white;
+
+.dropdown-button  {
+    font-size: 1em;
 }
-.side-nav li {
-    padding-top:10px;
-}
-.side-nav li>a{
-    color: white;
-    font-size: 1.5em;
-    border-bottom: 1px white solid;
+
+#dropdown1 {
+    top: 70px !important;
+    left: -20px !important;
+    width: 360px !important;
 }
 
 body {
@@ -48,6 +47,7 @@ body {
 
 main {
     flex: 1 0 auto;
+    transition: all 0.1s ease-in;
 }
 
 .parallax-container {

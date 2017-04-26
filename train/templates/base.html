@@ -19,24 +19,27 @@
     <nav>
     <div class="nav-wrapper nav-container">
       <a href="{% url 'home' %}" class="brand-logo">ChennaiLoco</a>
-      <a href="#" data-activates="sidenav" class="button-collapse"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
         <li>Hi {{ user.username }}.</li>
+        {% endif %}
+        <li><a href="{% url 'trains' %}">Trains</a></li>
+        <li><a href="{% url 'stations' %}">Stations</a></li>
+        {% if user.is_authenticated %}
         <li><a class="logout" href="{% url 'auth' %}">Logout</a></li>
         {% else %}
         <li><a class="login" href="{% url 'auth' %}">Login</a></li>
         {% endif %}
-        <li><a href="{% url 'trains' %}">Trains</a></li>
-        <li><a href="{% url 'stations' %}">Stations</a></li>
       </ul>
-      <ul class="side-nav center" id="sidenav">
+      <a class='dropdown-button hide-on-med-and-up right' href='#' id="dropdownbutton" data-activates='dropdown1'><i class="material-icons">keyboard_arrow_down</i></a>
+      <ul id='dropdown1' class='dropdown-content'>
         {% if user.is_authenticated %}
         <li>Hi {{ user.username }}.</li>
         <li><a class="logout" href="{% url 'auth' %}">Logout</a></li>
         {% else %}
         <li><a class="login" href="{% url 'auth' %}">Login</a></li>
         {% endif %}
+        <li class="divider"></li>
         <li><a href="{% url 'trains' %}">Trains</a></li>
         <li><a href="{% url 'stations' %}">Stations</a></li>
       </ul>
@@ -67,12 +70,25 @@
     <script src="{% static 'js/materialize.min.js' %}"></script>
     <script src="{% static 'js/animatescroll/animatescroll.js' %}"></script>
     <script>
-    $(".button-collapse").sideNav();
     $(".scroll-links").on("click", function(e){
       e.preventDefault();
       var element = "#" + this.href.split("#")[1];
       $(element).animatescroll({scrollSpeed:2000,easing:'easeOutBounce'});
-    })
+    });
+
+    $(".dropdown-button").on("click", function(e){
+      e.stopPropagation();
+      var dropdown = $("#dropdown1");
+      if (dropdown.css("display")=="none"){
+        $("main").css("filter", "blur(5px)");
+      }
+    });
+
+    $("body").on("click",function(){
+      if ($("main").css("filter") == "blur(5px)" && $("#dropdown1").css("display") == "block"){
+        $("main").css("filter", "blur(0px)");
+      }
+    });
     </script>
     {% block js %} {% endblock js %}
 </body>
