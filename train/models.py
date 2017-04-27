@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -51,13 +52,16 @@ class Route(models.Model):
 	def __str__(self):
 		return self.train.name + " at " + self.station.name
 
+d = User.objects.get(username="digi")
+
 
 class Review(models.Model):
 	station = models.ForeignKey(Station, on_delete=models.CASCADE)
-	# user = models.ForeignKey(User, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, default=d)
 	rating = models.IntegerField()
 	feedback = models.CharField(max_length=500)
-	# category = models.CharField(max_length=10, blank=True)
+	score = models.IntegerField(blank=True)
+	category = models.CharField(max_length=10, blank=True)
 
 	def __str__(self):
 		return self.station.name + ": " + self.feedback[:30]

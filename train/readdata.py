@@ -5,6 +5,7 @@
 from train.models import Train, Station, Route, Location
 from ChennaiLoco.secret_settings import API_KEY
 import googlemaps
+import re
 
 # Constants - if you want to change anything change here
 
@@ -14,6 +15,9 @@ COLDIV = ":"
 ROWDIV = "\n"
 BLOCKDIV = ";"
 MODELS = ["train", "station", "route"]
+POSITIVE = ["good", "nice", "beatiful", "amazing", "awesome", "best", "cool", "clean", "neat"]
+NEGATIVE = ["bad", "worst", "dirty", "ugly", "unhelpful"]
+POINT, THRESHOLD = [2, 3]
 
 
 def get_data_from_file(name, splitter=ROWDIV):
@@ -149,3 +153,35 @@ def populate_db():
 	print("Entering all route info")
 	route_data()
 	return "Database populated. Quiting."
+
+
+def find_category(x, y):
+	if x and y:
+		return "Mixed"
+	elif x and not y:
+		return "Positive"
+	elif not x and y:
+		return "Negative"
+	else:
+		return "Neutral"
+
+
+def calc_score(message):
+	# Input: The message to be analysed
+	# Operations: Calculates the score and finds the category
+	# Output: (score, category)
+	# Remove all the punctaution characters
+	message = re.sub(r'[.!\-@#]', '', message)
+	# Lower the message and split it into words
+	message = message.lower().split(" ")
+	score, pflag, nflag = [0,0,0]
+	for word in message:
+		if word in POSITIVE:
+			score += 2
+			pflag = 1
+		elif word in NEGATIVE:
+			score -= 2
+			nflag = 1
+
+	category = find_category(pflag, nflag)
+	return (score, category)
