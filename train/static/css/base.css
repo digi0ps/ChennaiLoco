@@ -145,14 +145,28 @@ footer.page-footer {
 	overflow-y: scroll;
 }
 /* station detail */
+.show-review {
+    cursor: pointer;
+}
 .review {
-	text-align: right;
+	text-align: left;
+}
+@media only-screen and (min-width: 500px){
+.review {
+    text-align: right;
 }
 .review:nth-child(even){
 	text-align: left;
 }
+}
 .review .card {
 	height: 150px;
+}
+.positive {
+    box-shadow: 0 4px 5px 0 rgba(34, 255, 5, 0.28), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+}
+.negative {
+    box-shadow: 0 4px 5px 0 rgba(255, 17, 39, 0.37), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
 }
 
 /* autocomplete */

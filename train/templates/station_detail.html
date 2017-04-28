@@ -63,19 +63,22 @@
         </div>
     {% endif %}
     <div class="reviews col s12 m12">
+        <hr>
         <p class="center flow-text">
             {% if station.review_set.count %}
-                Reviews for {{ station.name }}:
+                Reviews for {{ station.name }}
             {% else %}
                 No reviews yet 😞
             {% endif %}
         </p>
+        <hr>
         {% if positives %}
         <div class="row">
-            <p class="center flow-text">{{ positives.count }} Positive Reviews.</p>
+            <p class="show-review center flow-text">{{ positives.count }} Positive Reviews.</p>
+            <div class="review-container">
             {% for review in positives %}
-            <div class="review col s12 m6">
-                <div class="card horizontal z-depth-2">
+            <div class="review posreview col s12 m6">
+                <div class="card horizontal positive">
                     <div class="card-stacked">
                         <div class="card-content">
                             <p class="user"><span class="green-text darken-3">{{ review.user.username }}</span> says,<p>
@@ -86,14 +89,16 @@
                 </div>
             </div>
             {% endfor %}
+            <hr class="divider">
+            </div>
         </div>
-        <hr class="divider">
         {% endif %}
         {% if neutrals %}
         <div class="row">
-            <p class="center flow-text">{{ neutrals.count }} Neutral Reviews.</p>
+            <p class="show-review center flow-text">{{ neutrals.count }} Neutral Reviews.</p>
+            <div class="review-container">
             {% for review in neutrals %}
-            <div class="review col s12 m6">
+            <div class="review neureview col s12 m6">
                 <div class="card horizontal z-depth-2">
                     <div class="card-stacked">
                         <div class="card-content">
@@ -105,15 +110,17 @@
                 </div>
             </div>
             {% endfor %}
+            <hr class="divider">
+            </div>
         </div>
-        <hr class="divider">
         {% endif %}
         {% if negatives %}
         <div class="row">
-            <p class="center flow-text">{{ negatives.count }} Negative Reviews.</p>
+            <p class="show-review center flow-text">{{ negatives.count }} Negative Reviews.</p>
+            <div class="review-container">
             {% for review in negatives %}
-            <div class="review col s12 m6">
-                <div class="card horizontal z-depth-2">
+            <div class="review negreview col s12 m6">
+                <div class="card horizontal negative">
                     <div class="card-stacked">
                         <div class="card-content">
                             <p class="user"><span class="green-text darken-3">{{ review.user.username }}</span> says,<p>
@@ -124,6 +131,8 @@
                 </div>
             </div>
             {% endfor %}
+            <hr class="divider">
+            </div>
         </div>
         {% endif %}
     </div>
@@ -143,6 +152,13 @@ position: station,
 map: map
 });
 }
+
+$(".review-container").hide();
+$(".show-review").on("click", function(){
+    console.log($(this))
+    $(this).siblings(".review-container").show();
+});
+
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApm4oDwEITYu-BUCkhoel8FbXUhBu3U-8&callback=initMap"></script>
 {% endblock js %}
