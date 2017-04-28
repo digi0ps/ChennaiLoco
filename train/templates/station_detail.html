@@ -70,13 +70,15 @@
                 No reviews yet 😞
             {% endif %}
         </p>
+        {% if positives %}
         <div class="row">
-            {% for review in station.review_set.all %}
+            <p class="center flow-text">{{ positives.count }} Positive Reviews.</p>
+            {% for review in positives %}
             <div class="review col s12 m6">
                 <div class="card horizontal z-depth-2">
                     <div class="card-stacked">
                         <div class="card-content">
-                            <p class="user"><span class="green-text darken-3">{{ user.username }}</span> says,<p>
+                            <p class="user"><span class="green-text darken-3">{{ review.user.username }}</span> says,<p>
                             <p class="feedback">{{ review.feedback }}</p>
                             <p class="rating">Rating: <span class="chip">{{ review.rating }}/10</span></p>
                         </div>
@@ -85,6 +87,45 @@
             </div>
             {% endfor %}
         </div>
+        <hr class="divider">
+        {% endif %}
+        {% if neutrals %}
+        <div class="row">
+            <p class="center flow-text">{{ neutrals.count }} Neutral Reviews.</p>
+            {% for review in neutrals %}
+            <div class="review col s12 m6">
+                <div class="card horizontal z-depth-2">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="user"><span class="green-text darken-3">{{ review.user.username }}</span> says,<p>
+                            <p class="feedback">{{ review.feedback }}</p>
+                            <p class="rating">Rating: <span class="chip">{{ review.rating }}/10</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <hr class="divider">
+        {% endif %}
+        {% if negatives %}
+        <div class="row">
+            <p class="center flow-text">{{ negatives.count }} Negative Reviews.</p>
+            {% for review in negatives %}
+            <div class="review col s12 m6">
+                <div class="card horizontal z-depth-2">
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p class="user"><span class="green-text darken-3">{{ review.user.username }}</span> says,<p>
+                            <p class="feedback">{{ review.feedback }}</p>
+                            <p class="rating">Rating: <span class="chip">{{ review.rating }}/10</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </div>
 </main>

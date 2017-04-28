@@ -1,7 +1,44 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+import re
 # Create your models here.
+POSITIVE = ["good", "nice", "beatiful", "amazing", "awesome", "best", "cool", "clean", "neat"]
+NEGATIVE = ["bad", "worst", "dirty", "ugly", "unhelpful"]
+POINT, THRESHOLD = [2, 3]
+
+
+def find_category(x, y):
+	if x and y:
+		return "Mixed"
+	elif x and not y:
+		return "positive"
+	elif not x and y:
+		return "negative"
+	else:
+		return "neutral"
+
+
+def calc_score(message, rating):
+	# Input: The message to be analysed
+	# Operations: Calculates the score and finds the category
+	# Output: (score, category)
+	# Remove all the punctaution characters
+	message = re.sub(r'[.!\-@#]', '', message)
+	# Lower the message and split it into words
+	message = message.lower().split(" ")
+	score, pflag, nflag = [0, 0, 0]
+	for word in message:
+		if word in POSITIVE:
+			score += 2
+			pflag = 1
+		elif word in NEGATIVE:
+			score -= 2
+			nflag = 1
+
+	category = find_category(pflag, nflag)
+	score = score * rating
+	return (score, category)
 
 
 class Station(models.Model):
@@ -52,19 +89,24 @@ class Route(models.Model):
 	def __str__(self):
 		return self.train.name + " at " + self.station.name
 
-d = User.objects.get(username="digi")
-
 
 class Review(models.Model):
 	station = models.ForeignKey(Station, on_delete=models.CASCADE)
-	user = models.ForeignKey(User, on_delete=models.CASCADE, default=d)
+	user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 	rating = models.IntegerField()
 	feedback = models.CharField(max_length=500)
-	score = models.IntegerField(blank=True)
+	score = models.IntegerField(default=0, blank=True)
 	category = models.CharField(max_length=10, blank=True)
 
 	def __str__(self):
 		return self.station.name + ": " + self.feedback[:30]
+
+	def save(self, *args, **kwargs):
+		tup = calc_score(self.feedback, self.rating)
+		self.score = tup[0]
+		self.category = tup[1]
+		print(tup)
+		super(Review, self).save(*args, **kwargs)
 
 
 class Location(models.Model):

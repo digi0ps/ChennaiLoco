@@ -76,8 +76,18 @@ def train_view(request, pk):
 
 def station_view(request, slug):
 	station = get_object_or_404(Station, slug=slug)
+	positive = Review.objects.filter(station=station, category="positive").order_by("-score")
+	neutral = Review.objects.filter(station=station, category="neutral").order_by("-score")
+	negative = Review.objects.filter(station=station, category="negative").order_by("-score")
 	route = Route.objects.select_related('train').filter(station=station)
-	return render(request, "station_detail.html", {"station": station, "trainroutes": route})
+	return render(request, "station_detail.html", {
+		"station": station,
+		"trainroutes": route,
+		"positives": positive,
+		"negatives": negative,
+		"neutrals": neutral,
+		}
+	)
 
 
 def search_view(request):
@@ -193,8 +203,7 @@ def review_view(request, slug):
 		if review.is_valid():
 			cd = review.cleaned_data
 			station = get_object_or_404(Station, slug=slug)
-			r = Review.objects.create(station=station, rating=cd["rating"], feedback=cd["feedback"])
+			r = Review.objects.create(station=station, rating=cd["rating"], feedback=cd["feedback"], user=request.user)
 			return HttpResponseRedirect(station.get_absolute_url())
 		else:
 			return render(request, "station_detail.html", {"station": station, "invalid": 1})
-

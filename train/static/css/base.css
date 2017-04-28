@@ -148,7 +148,7 @@ footer.page-footer {
 .review {
 	text-align: right;
 }
-.review:nth-child(odd){
+.review:nth-child(even){
 	text-align: left;
 }
 .review .card {
