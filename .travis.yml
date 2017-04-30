@@ -1,9 +1,15 @@
 language: python
+services:
+  - postgressql
 python:
   - 3.5
+env:
+  - DJANGO=1.11 DB=postgres
 install:
   - pip install -r requirements.txt
   - pip install coveralls
+before_script:
+  - psql -c 'create database digiopsdotme;' -U postgres
 script:
   - coverage run --source=train manage.py test
 after_success:
