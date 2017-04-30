@@ -14,7 +14,7 @@ Minambakkam:MN:Meenambakkam:600027:S
 Tirusulam:TLM:Meenambakkam:600027:S
 Pallavaram:PV:Pallavaram:600043:S
 Chromepet:CMP:Chromepet:600044:S
-Tambaram Sanatorium:TBMS:600047:Tambaram:S
+Tambaram Sanatorium:TBMS:Tambaram:600047:S
 Tambaram:TBM:Tambaram:600045:S
 Perungalathur:PRGL:Perungalathur:600063:S
 Vandalur:VDR:Vandalur:600048:S

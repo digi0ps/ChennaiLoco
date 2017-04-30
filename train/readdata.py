@@ -107,7 +107,7 @@ def route_data():
 				try:
 					print(data)
 					t = Train.objects.get(number=int(data))
-				except DoesNotExist:
+				except:
 					return "Train does not exist - " + data
 			else:
 				"""
@@ -117,7 +117,7 @@ def route_data():
 				try:
 					print(data[0])
 					s = Station.objects.get(code=data[0])
-				except DoesNotExist:
+				except:
 					return "Station does not exist - " + data[0]
 				r = Route()
 				r.train = t
@@ -145,14 +145,6 @@ def location_data():
 			print("ERROR: Geocode not found for " + station.name)
 
 
-def populate_db():
-	print("Entering Train data")
-	train_data()
-	print("Entering Station data")
-	station_data()
-	print("Entering all route info")
-	route_data()
-	return "Database populated. Quiting."
 
 
 def find_category(x, y):
@@ -185,3 +177,15 @@ def calc_score(message):
 
 	category = find_category(pflag, nflag)
 	return (score, category)
+
+
+def populate_db():
+	print("Entering Train data")
+	train_data()
+	print("Entering Station data")
+	station_data()
+	print("Entering all route info")
+	route_data()
+	print("Entering all location info")
+	location_data()
+	return "Database populated. Quiting."
