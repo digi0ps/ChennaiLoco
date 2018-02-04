@@ -1,5 +1,5 @@
 appdirs==1.4.3
-coverage==4.4.1
+coverage==4.5
 Django==1.11.6
 djangorestframework==3.6.2
 packaging==16.8
