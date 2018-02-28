@@ -2,7 +2,7 @@ appdirs==1.4.3
 coverage==4.4.1
 Django==1.11.6
 djangorestframework==3.6.2
-packaging==16.8
+packaging==17.1
 pyparsing==2.2.0
 pytz==2017.2
 six==1.10.0
