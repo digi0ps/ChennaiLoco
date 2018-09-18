@@ -3,7 +3,7 @@ coverage==4.4.1
 Django==1.11.6
 djangorestframework==3.7.7
 packaging==16.8
-pyparsing==2.2.0
+pyparsing==2.2.1
 pytz==2017.2
 six==1.10.0
 psycopg2==2.7.1
