@@ -1,6 +1,6 @@
 appdirs==1.4.3
 coverage==4.4.1
-Django==2.1.4
+Django==2.2.24
 djangorestframework==3.7.7
 packaging==16.8
 pyparsing==2.2.0
